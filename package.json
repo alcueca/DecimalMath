@@ -1,0 +1,88 @@
+{
+    "name": "smart-contracts",
+    "version": "0.0.1",
+    "description": "Solidity smart-contracts fraction of HQ20 dapp boilerplate.",
+    "license": "Apache-2.0",
+    "author": {
+        "name": "TechHQ",
+        "github": "hq20",
+        "email": "admin@techhq.io",
+        "url": "https://techhq.io"
+    },
+    "engines": {
+        "node": ">= 10.20.1",
+        "npm": ">= 6.14.0",
+        "yarn": ">= 1.15.2"
+    },
+    "files": [
+        "contracts",
+        "types"
+    ],
+    "scripts": {
+        "deploy:ganache:local": "truffle deploy --network development",
+        "start:geth:local": "./scripts/local_geth.sh",
+        "start:ganache:local": "./scripts/local_ganache.sh",
+        "pretest": "yarn generate-ts",
+        "test": "scripts/test.sh",
+        "pretest:ci": "yarn generate-ts",
+        "test:ci": "CI=true scripts/test.sh",
+        "coverage": "SOLIDITY_COVERAGE=true scripts/test.sh",
+        "coverage:ci": "CI=true SOLIDITY_COVERAGE=true scripts/test.sh",
+        "lint:sol": "solium -d contracts",
+        "lint:ts": "eslint 'test/**/*.ts'",
+        "lint": "yarn lint:sol && yarn lint:ts",
+        "security": "docker run --rm --memory=3g -v $(pwd):/tmp -w \"/tmp/\" mythril/myth --truffle",
+        "docs": "soldoc docs/ contracts",
+        "generate-ts": "truffle compile && typechain --target truffle --outDir types/truffle-contracts './build/contracts/*.json'"
+    },
+    "dependencies": {
+        "@openzeppelin/contracts": "3.1.0",
+        "@openzeppelin/contracts-ethereum-package": "3.0.0",
+        "@openzeppelin/upgrades": "2.8.0"
+    },
+    "devDependencies": {
+        "@codechecks/client": "0.1.10",
+        "@openzeppelin/cli": "2.8.2",
+        "@truffle/hdwallet-provider": "1.0.35",
+        "@types/bignumber.js": "5.0.0",
+        "@types/chai": "4.2.11",
+        "@types/mocha": "7.0.2",
+        "@types/node": "14.0.5",
+        "@typescript-eslint/eslint-plugin": "3.0.0",
+        "@typescript-eslint/parser": "3.0.0",
+        "bignumber.js": "9.0.0",
+        "chai": "4.2.0",
+        "directory-tree": "2.2.4",
+        "eslint": "7.0.0",
+        "eth-gas-reporter": "0.2.17",
+        "ethlint": "1.2.5",
+        "solium": "^1.0.0",
+        "ganache-cli": "6.9.1",
+        "highlight.js": "10.0.3",
+        "markdown-it": "^10.0.0",
+        "markdown-it-emoji": "1.4.0",
+        "meow": "7.0.1",
+        "mustache": "4.0.1",
+        "node-emoji": "1.10.0",
+        "pdf-from-html": "0.1.2-beta.3",
+        "puppeteer": "3.1.0",
+        "soldoc": "0.1.3-beta.2",
+        "solidity-coverage": "0.7.5",
+        "truffle": "5.1.26",
+        "ts-generator": "0.0.8",
+        "ts-node": "8.10.1",
+        "truffle-typings": "1.0.8",
+        "typechain": "^1.0.0",
+        "typechain-target-truffle": "1.0.2",
+        "typescript": "3.9.3"
+    },
+    "resolutions": {
+        "set-value": "^2.0.1",
+        "kind-of": "^6.0.3",
+        "decompress": "^4.2.1",
+        "yargs-parser": "^18.1.2",
+        "minimist": "^1.2.3",
+        "mem": "^4.0.0",
+        "braces": "^2.3.1"
+    }
+}
