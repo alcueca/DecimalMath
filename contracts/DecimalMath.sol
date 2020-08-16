@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 contract DecimalMath {
     using SafeMath for uint256;
 
-    uint256 constant public UNIT = 1000000000000000000000000000;
+    uint256 constant public UNIT = 1e27;
 
     struct UFixed {
         uint256 value;
@@ -84,7 +84,7 @@ contract DecimalMath {
     /// @return A fixed point number.
     function divdrup(UFixed memory x, uint256 y) public pure returns (UFixed memory)
     {
-        uint256 z = x.value.mul(10000000000000000000000000000).div(y); // RAY * 10
+        uint256 z = x.value.mul(1e28).div(y); // RAY * 10
         if (z % 10 > 0) return UFixed({ value: z / 10 + 1 });
         else return UFixed({ value: z / 10 });
     }
