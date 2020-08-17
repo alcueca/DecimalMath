@@ -6,6 +6,9 @@ docs/
 # truffle build directory
 build/
 
+# crytic
+crytic-export/
+
 # misc
 .DS_Store
 .env.local
