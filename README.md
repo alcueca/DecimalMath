@@ -1,11 +1,8 @@
-# DecimalMath
+## Typed Decimal Math
 
-Smart contract implementing fixed point math operations using structs for type checking.
+This project is a strongly typed implementation for fixed point math in solidity.
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+It uses the eternally experimental ABIEncoderV2, to allow passing structs as parameters.
 
-Please make sure to update tests as appropriate.
-
-## License
-[GPL-3.0](LICENSE)
+Tested using echidna.
+echidna-test . --contract DecimalMathEchidna --config contracts/mocks/DecimalMathEchidna.yaml 
