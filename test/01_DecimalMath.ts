@@ -10,39 +10,48 @@ contract('DecimalMath', async (accounts: string[]) => {
 
   let math: any
 
+  const one = '1000000000000000000000000000'
+  const two = '2000000000000000000000000000'
+  const three = '3000000000000000000000000000'
+  const four = '4000000000000000000000000000'
+  const five = '5000000000000000000000000000'
+  const six = '6000000000000000000000000000'
+
   beforeEach(async () => {
     math = await DecimalMath.new({ from: owner })
   })
 
   it('muldc', async () => {
-    console.log('    ' + (await math.muldc('2000000000000000000000000000', '2000000000000000000000000000')).toString())
+    assert.equal((await math.muldc(two, three)).toString(), six)
   })
 
   it('muldu', async () => {
-    console.log('    ' + (await math.muldu('2000000000000000000000000000', '3000000000000000000000000000')).toString())
+    assert.equal((await math.muldu(two, three)).toString(), six)
   })
 
   it('divdc', async () => {
-    console.log('    ' + (await math.divdc('2000000000000000000000000000', '2000000000000000000000000000')).toString())
-  })
-
-  it('divdc(0,1)', async () => {
-    console.log('    ' + (await math.divdc(0, 1)).toString())
+    assert.equal((await math.divdc(six, three)).toString(), two)
   })
 
   it('divdu', async () => {
-    console.log('    ' + (await math.divdu('4000000000000000000000000000', '2000000000000000000000000000')).toString())
+    assert.equal((await math.divdu(six, three)).toString(), two)
   })
 
   it('adddu', async () => {
-    console.log('    ' + (await math.adddu('2000000000000000000000000000', '2000000000000000000000000000')).toString())
+    assert.equal((await math.adddu(two, three)).toString(), five)
   })
 
   it('subdu', async () => {
-    console.log('    ' + (await math.subdu('4000000000000000000000000000', '2000000000000000000000000000')).toString())
+    assert.equal((await math.subdu(three, two)).toString(), one)
   })
 
-  it('divdrupc(1,3)', async () => {
-    console.log('    ' + (await math.divdrupc(1, 3)).toString())
+  it('divdrupc', async () => {
+    assert.equal((await math.divdrupc(six, three)).toString(), two)
+    assert.equal((await math.divdrupc(one, three)).toString(), '333333333333333333333333334')
+  })
+
+  it('divdrupu', async () => {
+    assert.equal((await math.divdrupu(six, three)).toString(), two)
+    assert.equal((await math.divdrupu(one, three)).toString(), '333333333333333333333333334')
   })
 })
