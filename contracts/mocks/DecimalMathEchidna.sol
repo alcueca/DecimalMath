@@ -23,54 +23,52 @@ contract DecimalMathEchidna is DecimalMath {
     }
 
     function muldc(uint256 x, uint256 y) public pure returns (uint256) {
-        UFixed memory ux = toUFixed(x);
-        UFixed memory uz = muld(ux, y);
-        assert((ux.value * y) / UNIT == uz.value);
-        if(y > UNIT) assert(uz.value >= ux.value); // x could be zero
-        if(y < UNIT) assert(uz.value <= ux.value); // y could be zero
+        UFixed memory uy = toUFixed(y);
+        uint z = muld(x, uy);
+        assert((x * y) / UNIT == z);
+        if(y > UNIT) assert(z >= x); // x could be zero
+        if(y < UNIT) assert(z <= x); // y could be zero
     }
 
     function muldu(uint256 x, uint256 y) public pure returns (uint256) {
         UFixed memory ux = toUFixed(x);
         UFixed memory uy = toUFixed(y);
         UFixed memory uz = muld(ux, uy);
-        assert((ux.value * uy.value) / UNIT == uz.value);
-        if(uy.value > UNIT) assert(uz.value >= ux.value); // x could be zero
-        if(uy.value < UNIT) assert(uz.value <= ux.value); // x or y could be zero
+        assert((x * y) / UNIT == uz.value);
+        if(y > UNIT) assert(uz.value >= x); // x could be zero
+        if(y < UNIT) assert(uz.value <= x); // y could be zero
     }
 
     function divdc(uint256 x, uint256 y) public pure returns (uint256) {
-        UFixed memory ux = toUFixed(x);
-        UFixed memory uz = divd(ux, y);
-        assert((ux.value * UNIT) / y == uz.value);
-        if(y > UNIT) assert(uz.value <= ux.value); // x could be zero
-        if(y < UNIT) assert(uz.value >= ux.value); // x or y could be zero
+        UFixed memory uy = toUFixed(y);
+        uint z = divd(x, uy);
+        assert((x * UNIT) / y == z);
+        if(y > UNIT) assert(z <= x); // x could be zero
+        if(y < UNIT) assert(z >= x); // x or y could be zero
     }
 
     function divdu(uint256 x, uint256 y) public pure returns (uint256) {
         UFixed memory ux = toUFixed(x);
         UFixed memory uy = toUFixed(y);
         UFixed memory uz = divd(ux, uy);
-        assert((ux.value * UNIT) / uy.value == uz.value);
-        if(uy.value > UNIT) assert(uz.value <= ux.value); // x could be zero
-        if(uy.value < UNIT) assert(uz.value >= ux.value); // x could be zero
+        assert((x * UNIT) / y == uz.value);
+        if(y > UNIT) assert(uz.value <= x); // x could be zero
+        if(y < UNIT) assert(uz.value >= x); // x could be zero
+    }
+
+    function divdi(uint256 x, uint256 y) public pure returns (uint256) {
+        UFixed memory uz = divd(x, y);
+        assert((x * UNIT) / y == uz.value);
+        if(y > UNIT) assert(uz.value <= x); // x could be zero
+        if(y < UNIT) assert(uz.value >= x); // x could be zero
     }
 
     function divdrupc(uint256 x, uint256 y) public pure returns (uint256) {
-        UFixed memory ux = toUFixed(x);
-        UFixed memory uz = divdrup(ux, y);
-        if(((ux.value * UNIT * 10) / y) % 10 == 0) assert((ux.value * UNIT) / y == uz.value);
-        else assert((ux.value * UNIT) / y == uz.value - 1);
-        if(y > UNIT) assert(uz.value <= ux.value); // x could be zero
-        if(y < UNIT) assert(uz.value >= ux.value); // x or y could be zero
-    }
-
-    function divdrupu(uint256 x, uint256 y) public pure returns (uint256) {
-        UFixed memory ux = toUFixed(x);
         UFixed memory uy = toUFixed(y);
-        UFixed memory uz = divdrup(ux, uy);
-        assert(((ux.value * UNIT) / y == uz.value) || ((ux.value * UNIT) / y == uz.value - 1));
-        if(uy.value > UNIT) assert(uz.value <= ux.value); // x could be zero
-        if(uy.value < UNIT) assert(uz.value >= ux.value); // x could be zero
+        uint z = divdrup(x, uy);
+        if(((x * UNIT * 10) / y) % 10 == 0) assert((x * UNIT) / y == z);
+        else assert((x * UNIT) / y == z - 1);
+        if(y > UNIT) assert(z <= x); // x could be zero
+        if(y < UNIT) assert(z >= x); // x or y could be zero
     }
 }

@@ -9,8 +9,8 @@ contract DecimalMathMock is DecimalMath {
     constructor () public {}
 
     function muldc(uint256 x, uint256 y) public pure returns (uint256) {
-        UFixed memory ux = toUFixed(x);
-        return muld(ux, y).value;
+        UFixed memory uy = toUFixed(y);
+        return muld(x, uy);
     }
 
     function muldu(uint256 x, uint256 y) public pure returns (uint256) {
@@ -20,14 +20,18 @@ contract DecimalMathMock is DecimalMath {
     }
 
     function divdc(uint256 x, uint256 y) public pure returns (uint256) {
-        UFixed memory ux = toUFixed(x);
-        return divd(ux, y).value;
+        UFixed memory uy = toUFixed(y);
+        return divd(x, uy);
     }
 
     function divdu(uint256 x, uint256 y) public pure returns (uint256) {
         UFixed memory ux = toUFixed(x);
         UFixed memory uy = toUFixed(y);
         return divd(ux, uy).value;
+    }
+
+    function divdi(uint256 x, uint256 y) public pure returns (uint256) {
+        return divd(x, y).value;
     }
 
     function adddu(uint256 x, uint256 y) public pure returns (uint256) {
@@ -44,14 +48,7 @@ contract DecimalMathMock is DecimalMath {
 
     function divdrupc(uint256 x, uint256 y) public pure returns (uint256)
     {
-        UFixed memory ux = toUFixed(x);
-        return divdrup(ux, y).value;
-    }
-
-    function divdrupu(uint256 x, uint256 y) public pure returns (uint256)
-    {
-        UFixed memory ux = toUFixed(x);
         UFixed memory uy = toUFixed(y);
-        return divdrup(ux, uy).value;
+        return divdrup(x, uy);
     }
 }

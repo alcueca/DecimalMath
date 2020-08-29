@@ -23,11 +23,11 @@ UFixed.value: The raw value of the fixed point number. Note that 1.0 would be to
 # Functions
 
  - toUFixed(uint x) returns an UFixed created from x. Note that 1.0 would be toUfixed(1e27). Note as well that to retrieve the integer part of an UFixed you can do UFixed.value.div(UNIT), and to get the mantissa you can do UFixed.value.mod(UNIT)
- - muld(UFixed x, uint y) returns UFixed(x * y). Use this to multiply a money amount by a ratio (wei amount * ETH/DAI)
+ - muld(uint x, UFixed y) returns uint(x * y). Use this to multiply a money amount by a ratio (wei amount * ETH/DAI)
  - muld(UFixed x, UFixed y) returns UFixed(x * y). Use this to multiply two ratios (DAI/ETH * ETH/MKR)
- - divd(UFixed x, uint y) returns UFixed(x / y). Use this to divide a money amount by a ratio (wei amount / ETH/DAI)
+ - divd(uint x, UFixed y) returns uint(x / y). Use this to divide a money amount by a ratio (wei amount / ETH/DAI)
  - divd(UFixed x, UFixed y) returns UFixed(x / y). Use this to divide two ratios (DAI/ETH / ETH/MKR)
+ - divd(uint x, uint y) returns UFixed(x / y). Use this to divide two integer amounts and derive a ratio (debt / supply)
  - addd(UFixed x, UFixed y) returns UFixed(x + y). Use this to add two ratios
  - subd(UFixed x, UFixed y) returns UFixed(x - y). Use this to substract two ratios
- - divdrup(UFixed x, uint y) returns UFixed(x / y), rounding up. Use this and divd to divide a money amount by a ratio and have both results add up to the 
- - divdrup(UFixed x, UFixed y) returns UFixed(x / y), Use this and divd to divide a money amount by a ratio and have both results add up to the 
+ - divdrup(uint x, UFixed y) returns uint(x / y), rounding up. Use this and divd to divide a money amount by a ratio and have both results add up to the total.

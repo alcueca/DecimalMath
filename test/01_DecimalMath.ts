@@ -37,6 +37,10 @@ contract('DecimalMath', async (accounts: string[]) => {
     assert.equal((await math.divdu(six, three)).toString(), two)
   })
 
+  it('divdi', async () => {
+    assert.equal((await math.divdu(six, three)).toString(), two)
+  })
+
   it('adddu', async () => {
     assert.equal((await math.adddu(two, three)).toString(), five)
   })
@@ -45,13 +49,8 @@ contract('DecimalMath', async (accounts: string[]) => {
     assert.equal((await math.subdu(three, two)).toString(), one)
   })
 
-  it('divdrupc', async () => {
+  it('divdrup', async () => {
     assert.equal((await math.divdrupc(six, three)).toString(), two)
     assert.equal((await math.divdrupc(one, three)).toString(), '333333333333333333333333334')
-  })
-
-  it('divdrupu', async () => {
-    assert.equal((await math.divdrupu(six, three)).toString(), two)
-    assert.equal((await math.divdrupu(one, three)).toString(), '333333333333333333333333334')
   })
 })
