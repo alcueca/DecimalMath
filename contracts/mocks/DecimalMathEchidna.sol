@@ -78,4 +78,13 @@ contract DecimalMathEchidna {
         if(y > UNIT) assert(z <= x); // x could be zero
         if(y < UNIT) assert(z >= x); // x or y could be zero
     }
+
+    function muldrupc(uint256 x, uint256 y) public view returns (uint256) {
+        DecimalMath.UFixed memory uy = y.toUFixed();
+        uint z = x.muldrup(uy);
+        if(((x * y) / (UNIT / 10)) % 10 == 0) assert((x * y) / UNIT == z);
+        else assert((x * y) / UNIT == z - 1);
+        if(y > UNIT) assert(z >= x); // x could be zero
+        if(y < UNIT) assert(z <= x); // x or y could be zero
+    }
 }
