@@ -9,6 +9,36 @@ contract DecimalMathMock {
     using DecimalMath for DecimalMath.UFixed;
     using DecimalMath for uint256;
 
+    function eq(uint256 x, uint256 y) public pure returns (bool) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        DecimalMath.UFixed memory uy = y.toUFixed();
+        return ux.eq(uy);
+    }
+
+    function gt(uint256 x, uint256 y) public pure returns (bool) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        DecimalMath.UFixed memory uy = y.toUFixed();
+        return ux.gt(uy);
+    }
+
+    function geq(uint256 x, uint256 y) public pure returns (bool) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        DecimalMath.UFixed memory uy = y.toUFixed();
+        return ux.geq(uy);
+    }
+
+    function lt(uint256 x, uint256 y) public pure returns (bool) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        DecimalMath.UFixed memory uy = y.toUFixed();
+        return ux.lt(uy);
+    }
+
+    function leq(uint256 x, uint256 y) public pure returns (bool) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        DecimalMath.UFixed memory uy = y.toUFixed();
+        return ux.leq(uy);
+    }
+
     function muld1(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         return x.muld(uy);

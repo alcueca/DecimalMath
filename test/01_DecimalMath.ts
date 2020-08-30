@@ -21,6 +21,34 @@ contract('DecimalMath', async (accounts: string[]) => {
     math = await DecimalMath.new({ from: owner })
   })
 
+  it('eq', async () => {
+    assert.equal(await math.eq(one, two), false)
+    assert.equal(await math.eq(two, two), true)
+    assert.equal(await math.eq(three, two), false)
+  })
+
+  it('gt', async () => {
+    assert.equal(await math.gt(three, two), true)
+    assert.equal(await math.gt(two, three), false)
+  })
+
+  it('geq', async () => {
+    assert.equal(await math.geq(three, two), true)
+    assert.equal(await math.geq(three, three), true)
+    assert.equal(await math.geq(two, three), false)
+  })
+
+  it('lt', async () => {
+    assert.equal(await math.lt(three, two), false)
+    assert.equal(await math.lt(two, three), true)
+  })
+
+  it('leq', async () => {
+    assert.equal(await math.leq(three, two), false)
+    assert.equal(await math.leq(three, three), true)
+    assert.equal(await math.leq(two, three), true)
+  })
+
   it('muld1', async () => {
     assert.equal((await math.muld1(two, three)).toString(), six)
   })

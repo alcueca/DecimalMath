@@ -22,6 +22,81 @@ library DecimalMath {
         });
     }
 
+    /// @dev Equal to.
+    function eq(UFixed memory x, UFixed memory y) internal pure returns (bool) {
+        return x.value == y.value;
+    }
+
+    /// @dev Equal to.
+    function eq(UFixed memory x, uint y) internal pure returns (bool) {
+        return x.value == y.mul(UNIT);
+    }
+
+    /// @dev Equal to.
+    function eq(uint x, UFixed memory y) internal pure returns (bool) {
+        return x.mul(UNIT) == y.value;
+    }
+
+    /// @dev Greater than.
+    function gt(UFixed memory x, UFixed memory y) internal pure returns (bool) {
+        return x.value > y.value;
+    }
+
+    /// @dev Greater than.
+    function gt(UFixed memory x, uint y) internal pure returns (bool) {
+        return x.value > y.mul(UNIT);
+    }
+
+    /// @dev Greater than.
+    function gt(uint x, UFixed memory y) internal pure returns (bool) {
+        return x.mul(UNIT) > y.value;
+    }
+
+    /// @dev Greater or equal.
+    function geq(UFixed memory x, UFixed memory y) internal pure returns (bool) {
+        return x.value >= y.value;
+    }
+
+    /// @dev Greater or equal.
+    function geq(UFixed memory x, uint y) internal pure returns (bool) {
+        return x.value >= y.mul(UNIT);
+    }
+
+    /// @dev Greater or equal.
+    function geq(uint x, UFixed memory y) internal pure returns (bool) {
+        return x.mul(UNIT) >= y.value;
+    }
+
+    /// @dev Less than.
+    function lt(UFixed memory x, UFixed memory y) internal pure returns (bool) {
+        return x.value < y.value;
+    }
+
+    /// @dev Less than.
+    function lt(UFixed memory x, uint y) internal pure returns (bool) {
+        return x.value < y.mul(UNIT);
+    }
+
+    /// @dev Less than.
+    function lt(uint x, UFixed memory y) internal pure returns (bool) {
+        return x.mul(UNIT) < y.value;
+    }
+
+    /// @dev Less or equal.
+    function leq(UFixed memory x, UFixed memory y) internal pure returns (bool) {
+        return x.value <= y.value;
+    }
+
+    /// @dev Less or equal.
+    function leq(uint x, UFixed memory y) internal pure returns (bool) {
+        return x.mul(UNIT) <= y.value;
+    }
+
+    /// @dev Less or equal.
+    function leq(UFixed memory x, uint y) internal pure returns (bool) {
+        return x.value <= y.mul(UNIT);
+    }
+
     /// @dev Multiplies x and y.
     /// @param x An unsigned integer.
     /// @param y A fixed point number.
