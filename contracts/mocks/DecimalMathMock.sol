@@ -9,57 +9,82 @@ contract DecimalMathMock {
     using DecimalMath for DecimalMath.UFixed;
     using DecimalMath for uint256;
 
-    function muldc(uint256 x, uint256 y) public pure returns (uint256) {
+    function muld1(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         return x.muld(uy);
     }
 
-    function muldu(uint256 x, uint256 y) public pure returns (uint256) {
+    function muld2(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         return ux.muld(uy).value;
     }
 
-    function divdc(uint256 x, uint256 y) public pure returns (uint256) {
+    function muld3(uint256 x, uint256 y) public pure returns (uint256) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        return ux.muld(y).value;
+    }
+
+    function divd1(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         return x.divd(uy);
     }
 
-    function divdu(uint256 x, uint256 y) public pure returns (uint256) {
+    function divd2(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         return ux.divd(uy).value;
     }
 
-    function divdi(uint256 x, uint256 y) public pure returns (uint256) {
+    function divd3(uint256 x, uint256 y) public pure returns (uint256) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        return ux.divd(y).value;
+    }
+
+    function divd4(uint256 x, uint256 y) public pure returns (uint256) {
         return x.divd(y).value;
     }
 
-    function adddu(uint256 x, uint256 y) public pure returns (uint256) {
+    function addd1(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         return ux.addd(uy).value;
     }
 
-    function subdu(uint256 x, uint256 y) public pure returns (uint256) {
+    function addd2(uint256 x, uint256 y) public pure returns (uint256) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        return ux.addd(y).value;
+    }
+
+    function subd1(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         return ux.subd(uy).value;
     }
 
-    function divdrupc(uint256 x, uint256 y) public pure returns (uint256)
+    function subd2(uint256 x, uint256 y) public pure returns (uint256) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        return ux.subd(y).value;
+    }
+
+    function subd3(uint256 x, uint256 y) public pure returns (uint256) {
+        DecimalMath.UFixed memory uy = y.toUFixed();
+        return x.subd(uy).value;
+    }
+
+    function divdrup(uint256 x, uint256 y) public pure returns (uint256)
     {
         DecimalMath.UFixed memory uy = y.toUFixed();
         return x.divdrup(uy);
     }
 
-    function muldrupc(uint256 x, uint256 y) public pure returns (uint256)
+    function muldrup(uint256 x, uint256 y) public pure returns (uint256)
     {
         DecimalMath.UFixed memory uy = y.toUFixed();
         return x.muldrup(uy);
     }
 
-    function powdc(uint256 x, uint256 n) public pure returns (uint256) {
+    function powd(uint256 x, uint256 n) public pure returns (uint256) {
         DecimalMath.UFixed memory ux = x.toUFixed();
         return ux.powd(n).value;
     }
