@@ -40,6 +40,14 @@ library DecimalMath {
         });
     }
 
+    /// @dev Multiplies x and y.
+    /// @param x A fixed point number.
+    /// @param y An unsigned integer.
+    /// @return A fixed point number.
+    function muld(UFixed memory x, uint y) internal pure returns (UFixed memory) {
+        return muld(x, toUFixed(y));
+    }
+
     /// @dev Divides x by y.
     /// @param x An unsigned integer.
     /// @param y A fixed point number.
@@ -59,13 +67,19 @@ library DecimalMath {
     }
 
     /// @dev Divides x by y.
+    /// @param x A fixed point number.
+    /// @param y An unsigned integer.
+    /// @return A fixed point number.
+    function divd(UFixed memory x, uint y) internal pure returns (UFixed memory) {
+        return divd(x, toUFixed(y));
+    }
+
+    /// @dev Divides x by y.
     /// @param x An unsigned integer.
     /// @param y An unsigned integer.
     /// @return A fixed point number.
     function divd(uint256 x, uint256 y) internal pure returns (UFixed memory) {
-        return UFixed({
-            value: x.mul(UNIT).div(y)
-        });
+        return divd(toUFixed(x), y);
     }
 
     /// @dev Adds x and y.
@@ -78,6 +92,14 @@ library DecimalMath {
         });
     }
 
+    /// @dev Adds x and y.
+    /// @param x A fixed point number.
+    /// @param y An unsigned integer.
+    /// @return A fixed point number.
+    function addd(UFixed memory x, uint y) internal pure returns (UFixed memory) {
+        return addd(x, toUFixed(y));
+    }
+
     /// @dev Subtracts x and y.
     /// @param x A fixed point number.
     /// @param y A fixed point number.
@@ -86,6 +108,22 @@ library DecimalMath {
         return UFixed({
             value: x.value.sub(y.value)
         });
+    }
+
+    /// @dev Subtracts x and y.
+    /// @param x A fixed point number.
+    /// @param y An unsigned integer.
+    /// @return A fixed point number.
+    function subd(UFixed memory x, uint y) internal pure returns (UFixed memory) {
+        return subd(x, toUFixed(y));
+    }
+
+    /// @dev Subtracts x and y.
+    /// @param x An unsigned integer.
+    /// @param y A fixed point number.
+    /// @return A fixed point number.
+    function subd(uint x, UFixed memory y) internal pure returns (UFixed memory) {
+        return subd(toUFixed(x), y);
     }
 
     /// @dev Divides x between y, rounding up to the closest representable number.

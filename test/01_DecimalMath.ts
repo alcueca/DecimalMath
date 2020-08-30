@@ -21,43 +21,68 @@ contract('DecimalMath', async (accounts: string[]) => {
     math = await DecimalMath.new({ from: owner })
   })
 
-  it('muldc', async () => {
-    assert.equal((await math.muldc(two, three)).toString(), six)
+  it('muld1', async () => {
+    assert.equal((await math.muld1(two, three)).toString(), six)
   })
 
-  it('muldu', async () => {
-    assert.equal((await math.muldu(two, three)).toString(), six)
+  it('muld2', async () => {
+    assert.equal((await math.muld2(two, three)).toString(), six)
   })
 
-  it('divdc', async () => {
-    assert.equal((await math.divdc(six, three)).toString(), two)
+  it('muld3', async () => {
+    assert.equal((await math.muld3(two, three)).toString(), six)
   })
 
-  it('divdu', async () => {
-    assert.equal((await math.divdu(six, three)).toString(), two)
+  it('divd1', async () => {
+    assert.equal((await math.divd1(six, three)).toString(), two)
   })
 
-  it('divdi', async () => {
-    assert.equal((await math.divdu(six, three)).toString(), two)
+  it('divd1', async () => {
+    assert.equal((await math.divd2(six, three)).toString(), two)
   })
 
-  it('adddu', async () => {
-    assert.equal((await math.adddu(two, three)).toString(), five)
+  it('divd1', async () => {
+    assert.equal((await math.divd3(six, three)).toString(), two)
   })
 
-  it('subdu', async () => {
-    assert.equal((await math.subdu(three, two)).toString(), one)
+  it('divd1', async () => {
+    assert.equal((await math.divd4(six, three)).toString(), two)
+  })
+
+  it('addd1', async () => {
+    assert.equal((await math.addd1(two, three)).toString(), five)
+  })
+
+  it('addd2', async () => {
+    assert.equal((await math.addd2(two, three)).toString(), five)
+  })
+
+  it('subd1', async () => {
+    assert.equal((await math.subd1(three, two)).toString(), one)
+  })
+  
+  it('subd2', async () => {
+    assert.equal((await math.subd2(three, two)).toString(), one)
+  })
+
+  it('subd3', async () => {
+    assert.equal((await math.subd3(three, two)).toString(), one)
   })
 
   it('divdrup', async () => {
-    assert.equal((await math.divdrupc(six, three)).toString(), two)
-    assert.equal((await math.divdrupc(one, three)).toString(), '333333333333333333333333334')
+    assert.equal((await math.divdrup(six, three)).toString(), two)
+    assert.equal((await math.divdrup(one, three)).toString(), '333333333333333333333333334')
+  })
+
+  it('muldrup', async () => {
+    assert.equal((await math.muldrup(two, three)).toString(), six)
+    assert.equal((await math.muldrup('6666666666666666666666666666', '300000000000000000000000000')).toString(), two)
   })
 
   it('powd', async () => {
-    assert.equal((await math.powdc(0, 0)).toString(), 0)
-    assert.equal((await math.powdc(1, 0)).toString(), one)
-    assert.equal((await math.powdc(one, 1)).toString(), one)
-    assert.equal((await math.powdc(two, 2)).toString(), four)
+    assert.equal((await math.powd(0, 0)).toString(), 0)
+    assert.equal((await math.powd(1, 0)).toString(), one)
+    assert.equal((await math.powd(one, 1)).toString(), one)
+    assert.equal((await math.powd(two, 2)).toString(), four)
   })
 })

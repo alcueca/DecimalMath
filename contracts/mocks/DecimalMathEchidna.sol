@@ -15,29 +15,21 @@ contract DecimalMathEchidna {
         assert(UNIT == DecimalMath.UNIT);
     }
 
-    function adddu(uint256 x, uint256 y) public pure returns (uint256) {
+    function addd(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         DecimalMath.UFixed memory uz = ux.addd(uy);
         assert(uz.value >= x);
     }
 
-    function subdu(uint256 x, uint256 y) public pure returns (uint256) {
+    function subd(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         DecimalMath.UFixed memory uz = ux.subd(uy);
         assert(uz.value <= x);
     }
 
-    function muldc(uint256 x, uint256 y) public pure returns (uint256) {
-        DecimalMath.UFixed memory uy = y.toUFixed();
-        uint z = x.muld(uy);
-        assert((x * y) / UNIT == z);
-        if(y > UNIT) assert(z >= x); // x could be zero
-        if(y < UNIT) assert(z <= x); // y could be zero
-    }
-
-    function muldu(uint256 x, uint256 y) public pure returns (uint256) {
+    function muld(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         DecimalMath.UFixed memory uz = ux.muld(uy);
@@ -46,7 +38,7 @@ contract DecimalMathEchidna {
         if(y < UNIT) assert(uz.value <= x); // y could be zero
     }
 
-    function divdc(uint256 x, uint256 y) public pure returns (uint256) {
+    function divd(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         uint z = x.divd(uy);
         assert((x * UNIT) / y == z);
@@ -54,23 +46,7 @@ contract DecimalMathEchidna {
         if(y < UNIT) assert(z >= x); // x or y could be zero
     }
 
-    function divdu(uint256 x, uint256 y) public pure returns (uint256) {
-        DecimalMath.UFixed memory ux = x.toUFixed();
-        DecimalMath.UFixed memory uy = y.toUFixed();
-        DecimalMath.UFixed memory uz = ux.divd(uy);
-        assert((x * UNIT) / y == uz.value);
-        if(y > UNIT) assert(uz.value <= x); // x could be zero
-        if(y < UNIT) assert(uz.value >= x); // x could be zero
-    }
-
-    function divdi(uint256 x, uint256 y) public pure returns (uint256) {
-        DecimalMath.UFixed memory uz = x.divd(y);
-        assert((x * UNIT) / y == uz.value);
-        if(y > UNIT) assert(uz.value <= x); // x could be zero
-        if(y < UNIT) assert(uz.value >= x); // x could be zero
-    }
-
-    function divdrupc(uint256 x, uint256 y) public pure returns (uint256) {
+    function divdrup(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         uint z = x.divdrup(uy);
         if(((x * UNIT * 10) / y) % 10 == 0) assert((x * UNIT) / y == z);
@@ -79,7 +55,7 @@ contract DecimalMathEchidna {
         if(y < UNIT) assert(z >= x); // x or y could be zero
     }
 
-    function muldrupc(uint256 x, uint256 y) public pure returns (uint256) {
+    function muldrup(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         uint z = x.muldrup(uy);
         if(((x * y) / (UNIT / 10)) % 10 == 0) assert((x * y) / UNIT == z);
