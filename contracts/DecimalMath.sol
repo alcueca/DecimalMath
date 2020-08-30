@@ -89,9 +89,9 @@ library DecimalMath {
     }
 
     /// @dev Divides x between y, rounding up to the closest representable number.
-    /// @param x A fixed point number.
-    /// @param y An unsigned integer.
-    /// @return A fixed point number.
+    /// @param x An unsigned integer.
+    /// @param y A fixed point number.
+    /// @return An unsigned integer.
     function divdrup(uint256 x, UFixed memory y) internal pure returns (uint256)
     {
         uint256 z = x.mul(1e28).div(y.value); // RAY * 10

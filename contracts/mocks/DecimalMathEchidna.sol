@@ -9,10 +9,10 @@ contract DecimalMathEchidna {
     using DecimalMath for DecimalMath.UFixed;
     using DecimalMath for uint256;
 
-    uint256 public immutable UNIT;
+    uint256 internal constant UNIT = 1e27;
 
     constructor () public {
-        UNIT = DecimalMath.UNIT;
+        assert(UNIT == DecimalMath.UNIT);
     }
 
     function adddu(uint256 x, uint256 y) public pure returns (uint256) {
