@@ -5,18 +5,18 @@ import "./SafeMath.sol";
 
 
 /// @dev Implements simple fixed point math mul and div operations for 27 decimals.
-contract DecimalMath {
+library DecimalMath {
     using SafeMath for uint256;
 
-    uint256 constant public UNIT = 1e27;
+    uint256 constant internal UNIT = 1e27;
 
     struct UFixed {
         uint256 value;
     }
 
-    /// @dev Creates a fixed point number from an unsigend integer. `toUFixed(1) = 10^-27`
-    /// Converting from fixed point to integer
-    function toUFixed(uint256 x) public pure returns (UFixed memory) {
+    /// @dev Creates a fixed point number from an unsiged integer. `toUFixed(1) = 10^-27`
+    /// Converting from fixed point to integer can be done with `UFixed.value / UNIT` and `UFixed.value % UNIT`
+    function toUFixed(uint256 x) internal pure returns (UFixed memory) {
         return UFixed({
             value: x
         });
@@ -26,7 +26,7 @@ contract DecimalMath {
     /// @param x An unsigned integer.
     /// @param y A fixed point number.
     /// @return An unsigned integer.
-    function muld(uint256 x, UFixed memory y) public pure returns (uint256) {
+    function muld(uint256 x, UFixed memory y) internal pure returns (uint256) {
         return x.mul(y.value).div(UNIT);
     }
 
@@ -34,7 +34,7 @@ contract DecimalMath {
     /// @param x A fixed point number.
     /// @param y A fixed point number.
     /// @return A fixed point number.
-    function muld(UFixed memory x, UFixed memory y) public pure returns (UFixed memory) {
+    function muld(UFixed memory x, UFixed memory y) internal pure returns (UFixed memory) {
         return UFixed({
             value: muld(x.value, y)
         });
@@ -44,7 +44,7 @@ contract DecimalMath {
     /// @param x An unsigned integer.
     /// @param y A fixed point number.
     /// @return An unsigned integer.
-    function divd(uint256 x, UFixed memory y) public pure returns (uint256) {
+    function divd(uint256 x, UFixed memory y) internal pure returns (uint256) {
         return x.mul(UNIT).div(y.value);
     }
 
@@ -52,7 +52,7 @@ contract DecimalMath {
     /// @param x A fixed point number.
     /// @param y A fixed point number.
     /// @return A fixed point number.
-    function divd(UFixed memory x, UFixed memory y) public pure returns (UFixed memory) {
+    function divd(UFixed memory x, UFixed memory y) internal pure returns (UFixed memory) {
         return UFixed({
             value: divd(x.value, y)
         });
@@ -62,7 +62,7 @@ contract DecimalMath {
     /// @param x An unsigned integer.
     /// @param y An unsigned integer.
     /// @return A fixed point number.
-    function divd(uint256 x, uint256 y) public pure returns (UFixed memory) {
+    function divd(uint256 x, uint256 y) internal pure returns (UFixed memory) {
         return UFixed({
             value: x.mul(UNIT).div(y)
         });
@@ -72,7 +72,7 @@ contract DecimalMath {
     /// @param x A fixed point number.
     /// @param y A fixed point number.
     /// @return A fixed point number.
-    function addd(UFixed memory x, UFixed memory y) public pure returns (UFixed memory) {
+    function addd(UFixed memory x, UFixed memory y) internal pure returns (UFixed memory) {
         return UFixed({
             value: x.value.add(y.value)
         });
@@ -82,17 +82,17 @@ contract DecimalMath {
     /// @param x A fixed point number.
     /// @param y A fixed point number.
     /// @return A fixed point number.
-    function subd(UFixed memory x, UFixed memory y) public pure returns (UFixed memory) {
+    function subd(UFixed memory x, UFixed memory y) internal pure returns (UFixed memory) {
         return UFixed({
             value: x.value.sub(y.value)
         });
     }
 
     /// @dev Divides x between y, rounding up to the closest representable number.
-    /// @param x A fixed point number.
-    /// @param y An unsigned integer.
-    /// @return A fixed point number.
-    function divdrup(uint256 x, UFixed memory y) public pure returns (uint256)
+    /// @param x An unsigned integer.
+    /// @param y A fixed point number.
+    /// @return An unsigned integer.
+    function divdrup(uint256 x, UFixed memory y) internal pure returns (uint256)
     {
         uint256 z = x.mul(1e28).div(y.value); // RAY * 10
         if (z % 10 > 0) return z / 10 + 1;
