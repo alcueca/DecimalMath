@@ -52,4 +52,10 @@ contract DecimalMathMock {
         DecimalMath.UFixed memory uy = y.toUFixed();
         return x.divdrup(uy);
     }
+
+    function muldrupc(uint256 x, uint256 y) public pure returns (uint256)
+    {
+        DecimalMath.UFixed memory uy = y.toUFixed();
+        return x.muldrup(uy);
+    }
 }

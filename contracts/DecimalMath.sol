@@ -94,7 +94,18 @@ library DecimalMath {
     /// @return An unsigned integer.
     function divdrup(uint256 x, UFixed memory y) internal pure returns (uint256)
     {
-        uint256 z = x.mul(1e28).div(y.value); // RAY * 10
+        uint256 z = x.mul(1e28).div(y.value); // UNIT * 10
+        if (z % 10 > 0) return z / 10 + 1;
+        else return z / 10;
+    }
+
+    /// @dev Multiplies x by y, rounding up to the closest representable number.
+    /// @param x An unsigned integer.
+    /// @param y A fixed point number.
+    /// @return An unsigned integer.
+    function muldrup(uint256 x, UFixed memory y) internal pure returns (uint256)
+    {
+        uint256 z = x.mul(y.value).div(1e26); // UNIT / 10
         if (z % 10 > 0) return z / 10 + 1;
         else return z / 10;
     }
