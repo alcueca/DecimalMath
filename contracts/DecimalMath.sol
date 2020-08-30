@@ -95,8 +95,7 @@ library DecimalMath {
     function divdrup(uint256 x, UFixed memory y) internal pure returns (uint256)
     {
         uint256 z = x.mul(1e28).div(y.value); // UNIT * 10
-        if (z % 10 > 0) return z / 10 + 1;
-        else return z / 10;
+        return (z % 10 > 0) ? z / 10 + 1 : z / 10;
     }
 
     /// @dev Multiplies x by y, rounding up to the closest representable number.
@@ -106,7 +105,6 @@ library DecimalMath {
     function muldrup(uint256 x, UFixed memory y) internal pure returns (uint256)
     {
         uint256 z = x.mul(y.value).div(1e26); // UNIT / 10
-        if (z % 10 > 0) return z / 10 + 1;
-        else return z / 10;
+        return (z % 10 > 0) ? z / 10 + 1 : z / 10;
     }
 }
