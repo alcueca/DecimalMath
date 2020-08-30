@@ -87,4 +87,26 @@ contract DecimalMathEchidna {
         if(y > UNIT) assert(z >= x); // x could be zero
         if(y < UNIT) assert(z <= x); // x or y could be zero
     }
+
+    function powd_boundaries(uint256 x, uint256 n) public pure returns (uint256) {
+        n = n % 161; // This is as far as we can test using `((x / UNIT) + 1) ** n)`
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        DecimalMath.UFixed memory uz = ux.powd(n);
+        if(n == 0) assert(uz.value == UNIT);
+        else {
+            if(x > UNIT) { // If x = 2.5, we assert that x**2 is between 2**n and 3**n
+                assert(uz.value / UNIT >= (x / UNIT) ** n);
+                assert(uz.value / UNIT <= ((x / UNIT) + 1) ** n);
+            } 
+            if(x < UNIT) assert(uz.value <= x);
+        }
+    }
+
+    function powd_monotone(uint256 x, uint256 n) public pure returns (uint256) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        DecimalMath.UFixed memory uz1 = ux.powd(n);
+        ux.value += 1;
+        DecimalMath.UFixed memory uz2 = ux.powd(n);
+        assert(uz2.value >= uz1.value);
+    }
 }

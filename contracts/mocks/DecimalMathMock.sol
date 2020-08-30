@@ -58,4 +58,9 @@ contract DecimalMathMock {
         DecimalMath.UFixed memory uy = y.toUFixed();
         return x.muldrup(uy);
     }
+
+    function powdc(uint256 x, uint256 n) public pure returns (uint256) {
+        DecimalMath.UFixed memory ux = x.toUFixed();
+        return ux.powd(n).value;
+    }
 }

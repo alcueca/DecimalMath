@@ -107,4 +107,24 @@ library DecimalMath {
         uint256 z = x.mul(y.value).div(1e26); // UNIT / 10
         return (z % 10 > 0) ? z / 10 + 1 : z / 10;
     }
+
+    /// @dev Exponentiation (x**n) by squaring of a fixed point number by an integer.
+    /// Taken from https://github.com/dapphub/ds-math/blob/master/src/math.sol. Thanks!
+    /// @param x A fixed point number.
+    /// @param n An unsigned integer.
+    /// @return An unsigned integer.
+    function powd(UFixed memory x, uint256 n) internal pure returns (UFixed memory) {
+        if (x.value == 0) return toUFixed(0);
+        if (n == 0) return toUFixed(UNIT);
+        UFixed memory z = n % 2 != 0 ? x : toUFixed(UNIT);
+
+        for (n /= 2; n != 0; n /= 2) {
+            x = muld(x, x);
+
+            if (n % 2 != 0) {
+                z = muld(z, x);
+            }
+        }
+        return z;
+    }
 }

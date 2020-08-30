@@ -53,4 +53,11 @@ contract('DecimalMath', async (accounts: string[]) => {
     assert.equal((await math.divdrupc(six, three)).toString(), two)
     assert.equal((await math.divdrupc(one, three)).toString(), '333333333333333333333333334')
   })
+
+  it('powd', async () => {
+    assert.equal((await math.powdc(0, 0)).toString(), 0)
+    assert.equal((await math.powdc(1, 0)).toString(), one)
+    assert.equal((await math.powdc(one, 1)).toString(), one)
+    assert.equal((await math.powdc(two, 2)).toString(), four)
+  })
 })
