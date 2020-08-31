@@ -22,35 +22,56 @@ UFixed.value: The raw value of the fixed point number. Note that 1.0 would be to
 
 # Functions
 
-Except for `divd(uint, uint)` which returns an `UFixed`, all other functions return the type of the first parameter.
+## Conversion
+ - toUFixed(uint x) returns an UFixed created from x.
+  Note that 1.0 would be toUfixed(1e27). Note as well that to retrieve the integer part of an UFixed you can do UFixed.value.div(UNIT), and to get the mantissa you can do UFixed.value.mod(UNIT)
 
- - toUFixed(uint x) returns an UFixed created from x. 
- Note that 1.0 would be toUfixed(1e27). Note as well that to retrieve the integer part of an UFixed you can do UFixed.value.div(UNIT), and to get the mantissa you can do UFixed.value.mod(UNIT)
+## Comparison
+Comparison operators accept `UFixed` and `uint` as arguments in both positions. At least one argument must be an UFixed. Operators compare the converted UFixed values, not the internal UFixed.value ones, this is accomplished internally by multiplying any uint parameters by UNIT. Example:
+```
+  DecimalMath.UFixed ONE_POINT_ZERO = DecimalMath.toUFixed(UNIT);
+  uint TWO_INTEGER = 2;
+  TWO_INTEGER.gt(ONE_POINT_ZERO) == true
+  ONE_POINT_ZERO.gt(TWO_INTEGER) == false
+```
+ - gt(x, y) returns bool
+  Returns true if x is greater than y.
+ - geq(x, y) returns bool
+  Returns true if x is greater or equal than y.
+ - lt(x, y) returns bool
+  Returns true if x is less than y.
+ - geq(x, y) returns bool
+  Returns true if x is less or equal than y.
+ - eq(x, y) returns bool
+  Returns true if x is equal to y.
+
+## Arithmetic
+Except for `divd(uint, uint)` which returns an `UFixed`, all other functions return the type of the first parameter.
  - muld(uint x, UFixed y) returns uint(x * y).
- Use this to multiply a money amount by a ratio (wei amount * ETH/DAI)
+  Use this to multiply a money amount by a ratio (wei amount * ETH/DAI)
  - muld(UFixed x, UFixed y) returns UFixed(x * y).
- Use this to multiply two ratios (DAI/ETH * ETH/MKR)
+  Use this to multiply two ratios (DAI/ETH * ETH/MKR)
  - muld(UFixed x, uint y) returns UFixed(x * y).
- Use this to multiply two ratios by a factor (DAI/ETH * 2)
+  Use this to multiply two ratios by a factor (DAI/ETH * 2)
  - divd(UFixed x, UFixed y) returns UFixed(x / y).
- Use this to divide two ratios (DAI/ETH / ETH/MKR)
+  Use this to divide two ratios (DAI/ETH / ETH/MKR)
  - divd(uint x, UFixed y) returns uint(x / y). 
- Use this to divide a money amount by a ratio (wei amount / ETH/DAI)
+  Use this to divide a money amount by a ratio (wei amount / ETH/DAI)
   - divd(UFixed x, uint y) returns uint(x / y). 
- Use this to apply a divisor to a ratio (ETH/DAI / 2)
+  Use this to apply a divisor to a ratio (ETH/DAI / 2)
  - divd(uint x, uint y) returns UFixed(x / y).
- Use this to divide two integer amounts and derive a ratio (debt / supply)
+  Use this to divide two integer amounts and derive a ratio (debt / supply)
  - addd(UFixed x, UFixed y) returns UFixed(x + y).
- Use this to add two ratios
+  Use this to add two ratios
  - addd(UFixed x, UFixed y) returns UFixed(x + y).
- Use this to add a factor two a ratio (debt ratio + 1)
+  Use this to add a factor two a ratio (debt ratio + 1)
  - subd(UFixed x, UFixed y) returns UFixed(x - y).
- Use this to substract two ratios
+  Use this to substract two ratios
  - subd(UFixed x, uint y) returns UFixed(x - y).
- Use this to substract a factor from a ratio (debt ratio - 1)
+  Use this to substract a factor from a ratio (debt ratio - 1)
  - subd(uint x, UFixed y) returns UFixed(x - y).
- Use this to substract a ratio from a factor (1 - debt ratio)
+  Use this to substract a ratio from a factor (1 - debt ratio)
  - divdrup(uint x, UFixed y) returns uint(x / y), rounding up.
- Use this and divd to split a money amount into two parts that add up to the original value. x = divd(x, y) + divdrup(x, 1 - y).
+  Use this and divd to split a money amount into two parts that add up to the original value. x = divd(x, y) + divdrup(x, 1 - y).
  - muldrup(uint x, UFixed y) returns uint(x */* y), rounding up.
- Use this as the reverse of divd. z = divd(x, y), x = muldrup(z, y).
+  Use this as the reverse of divd. z = divd(x, y), x = muldrup(z, y).
