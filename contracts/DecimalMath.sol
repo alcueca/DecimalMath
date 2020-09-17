@@ -207,8 +207,8 @@ library DecimalMath {
     /// @return An unsigned integer.
     function divdrup(uint256 x, UFixed memory y) internal pure returns (uint256)
     {
-        uint256 z = x.mul(1e28).div(y.value); // UNIT * 10
-        return (z % 10 > 0) ? z / 10 + 1 : z / 10;
+        uint256 z = x.mul(UNIT);
+        return z.mod(y.value) == 0 ? z.div(y.value) : z.div(y.value).add(1);
     }
 
     /// @dev Multiplies x by y, rounding up to the closest representable number.
@@ -217,8 +217,8 @@ library DecimalMath {
     /// @return An unsigned integer.
     function muldrup(uint256 x, UFixed memory y) internal pure returns (uint256)
     {
-        uint256 z = x.mul(y.value).div(1e26); // UNIT / 10
-        return (z % 10 > 0) ? z / 10 + 1 : z / 10;
+        uint256 z = x.mul(y.value);
+        return z.mod(UNIT) == 0 ? z.div(UNIT) : z.div(UNIT).add(1);
     }
 
     /// @dev Exponentiation (x**n) by squaring of a fixed point number by an integer.

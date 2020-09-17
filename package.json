@@ -9,12 +9,12 @@
     },
     "scripts": {
         "build": "buidler compile",
-        "test": "buidler test test/*.ts test/examples/*.ts",
+        "test": "buidler test test/*.ts",
         "test:non-functional": "buidler test",
+        "test:echidna": "npx buidler compile && echidna-test . --contract DecimalMathEchidna --config ./contracts/mocks/DecimalMathEchidna.yaml",
         "ganache": "./scripts/ganache.sh",
         "deploy:ganache": "yarn ganache && truffle migrate",
         "coverage": "buidler coverage --network coverage --temp build --testfiles 'test/*.ts'",
-        "lint": "prettier ./test/**/*.ts --check",
         "lint:fix": "prettier ./test/**/*.ts --write"
     },
     "devDependencies": {

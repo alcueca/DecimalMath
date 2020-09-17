@@ -97,12 +97,15 @@ contract('DecimalMath', async (accounts: string[]) => {
     assert.equal((await math.subd3(three, two)).toString(), one)
   })
 
-  it('divdrup', async () => {
+  it('divdrup', async () => {             
+    assert.equal((await math.divdrup(1, two)).toString(), 1)
+    assert.equal((await math.divdrup(one, '1000000000000000000000000001')).toString(), one)
     assert.equal((await math.divdrup(six, three)).toString(), two)
     assert.equal((await math.divdrup(one, three)).toString(), '333333333333333333333333334')
   })
 
   it('muldrup', async () => {
+    assert.equal((await math.muldrup(1, 1)).toString(), 1)
     assert.equal((await math.muldrup(two, three)).toString(), six)
     assert.equal((await math.muldrup('6666666666666666666666666666', '300000000000000000000000000')).toString(), two)
   })

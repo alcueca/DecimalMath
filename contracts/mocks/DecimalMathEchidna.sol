@@ -19,6 +19,7 @@ contract DecimalMathEchidna {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         DecimalMath.UFixed memory uz = ux.addd(uy);
+        
         assert(uz.value >= x);
     }
 
@@ -26,6 +27,7 @@ contract DecimalMathEchidna {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         DecimalMath.UFixed memory uz = ux.subd(uy);
+        
         assert(uz.value <= x);
     }
 
@@ -33,6 +35,7 @@ contract DecimalMathEchidna {
         DecimalMath.UFixed memory ux = x.toUFixed();
         DecimalMath.UFixed memory uy = y.toUFixed();
         DecimalMath.UFixed memory uz = ux.muld(uy);
+        
         assert((x * y) / UNIT == uz.value);
         if(y > UNIT) assert(uz.value >= x); // x could be zero
         if(y < UNIT) assert(uz.value <= x); // y could be zero
@@ -41,6 +44,7 @@ contract DecimalMathEchidna {
     function divd(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         uint z = x.divd(uy);
+
         assert((x * UNIT) / y == z);
         if(y > UNIT) assert(z <= x); // x could be zero
         if(y < UNIT) assert(z >= x); // x or y could be zero
@@ -49,8 +53,9 @@ contract DecimalMathEchidna {
     function divdrup(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         uint z = x.divdrup(uy);
-        if(((x * UNIT * 10) / y) % 10 == 0) assert((x * UNIT) / y == z);
-        else assert((x * UNIT) / y == z - 1);
+
+        assert (muldrup(z, y) >= x); // We are rounding up
+        if (muld(z, y) > x) assert (divd(x, y) == z - 1); // Unless z * y is exactly x, we have rounded up.
         if(y > UNIT) assert(z <= x); // x could be zero
         if(y < UNIT) assert(z >= x); // x or y could be zero
     }
@@ -58,8 +63,9 @@ contract DecimalMathEchidna {
     function muldrup(uint256 x, uint256 y) public pure returns (uint256) {
         DecimalMath.UFixed memory uy = y.toUFixed();
         uint z = x.muldrup(uy);
-        if(((x * y) / (UNIT / 10)) % 10 == 0) assert((x * y) / UNIT == z);
-        else assert((x * y) / UNIT == z - 1);
+        
+        assert (divdrup(z, y) >= x); // We are rounding up
+        if (divd(z, y) > x) assert (muld(x, y) == z - 1);  // Unless z / y is exactly x, we have rounded up.
         if(y > UNIT) assert(z >= x); // x could be zero
         if(y < UNIT) assert(z <= x); // x or y could be zero
     }
